@@ -1,0 +1,20 @@
+.categories {
+    display: flex;
+    justify-content: space-evenly; /* Espacio uniforme más reducido */
+    background-color: #FA5705; /* Contenedor naranja (naranja-500) */
+    padding: 0.5rem; /* Espaciado dentro del contenedor */
+    border-radius: 0.5rem; /* Bordes redondeados */
+  }
+  
+  .categories a {
+    color: white; /* Letras blancas */
+    text-decoration: none; /* Sin subrayado */
+    font-size: 1rem; /* Tamaño de fuente */
+    font-weight: 500; /* Peso de fuente */
+    transition: color 0.3s ease; /* Transición suave para el hover */
+  }
+  
+  .categories a:hover {
+    color: #fff; /* Color blanco al pasar el mouse (sin cambio en color porque ya es blanco) */
+  }
+  

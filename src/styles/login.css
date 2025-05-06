@@ -1,0 +1,174 @@
+/* Reset general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo general del body */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  /* Página de login */
+  .login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Contenedor principal */
+  .login-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Títulos */
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  /* Párrafos */
+  p {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  /* Labels */
+  label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-size: 14px;
+  }
+  
+  /* Inputs */
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+  }
+  
+  /* Casilla de términos y condiciones */
+  .terms-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 10px 0;
+    }
+  
+  .terms-container input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    }
+  
+  .terms-container label {
+    display: inline-flex;
+    align-items: center;
+    }
+  
+  
+  /* Enlace "Olvidaste tu contraseña" */
+  .forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    color: #0056b3;
+  }
+  
+  /* Botones generales */
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  /* Botón principal */
+  .btn-primary {
+    background-color: blue;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0047ab;
+  }
+  
+  /* Botón de Google */
+  .btn-google {
+    background-color: green;
+    color: white;
+  }
+  
+  .btn-google:hover {
+    background-color: #006400;
+  }
+  
+  /* Separador "O" */
+  .separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: gray;
+    margin: 15px 0;
+    position: relative;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+    margin: 0 10px;
+  }
+  
+  /* Texto de registro */
+  .register-text {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  /* Enlace de registro */
+  .register-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .register-link:hover {
+    color: #0056b3;
+  }
+  

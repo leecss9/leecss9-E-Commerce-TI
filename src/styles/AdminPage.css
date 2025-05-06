@@ -1,0 +1,170 @@
+/* Estilos Generales */
+.admin-container {
+  display: flex;
+  gap: 15px;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  min-height: 100vh;
+  border-right: 2px solid #444;
+}
+
+.sidebar h2, .sidebar p {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px;
+  background: #444;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+  background-color: #0057d8;
+}
+
+.admin-main {
+  display: flex;
+  padding: 20px;
+  gap: 15px;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+/* Estilos para Crear Administrador */
+.create-admin {
+  border: 1px solid #ccc;
+  padding: 15px;
+  flex: 1 1 250px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.create-admin h3 {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.create-admin input {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.create-admin input:focus {
+  border-color: #0057d8;
+  outline: none;
+}
+
+.create-admin button {
+  padding: 8px 16px;
+  background-color: #0057d8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+}
+
+.create-admin button:hover {
+  background-color: #0042a3;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+
+/* Estilos para Administradores Existentes */
+.list-admins {
+  border: 1px solid #ccc;
+  padding: 15px;
+  flex: 1 1 250px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-admins h3 {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.list-admins table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.list-admins th, .list-admins td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-admins th {
+  background-color: #0057d8;
+  color: white;
+  font-weight: 600;
+}
+
+.list-admins tr:hover {
+  background-color: #f1f1f1;
+}
+
+.list-admins .delete-button {
+  background-color: #e53e3e;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.list-admins .delete-button:hover {
+  background-color: #c53030;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .admin-main {
+    padding: 15px;
+  }
+
+  .create-admin, .list-admins {
+    padding: 12px;
+  }
+
+  .sidebar {
+    width: 180px;
+  }
+}

@@ -1,0 +1,93 @@
+.carrito-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #f9f9f2;
+    border-radius: 10px;
+    font-family: sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .vacio {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+  }
+  
+  .producto {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .producto img {
+    width: 80px;
+    height: 80px;
+    margin-right: 1rem;
+  }
+  
+  .info {
+    flex: 1;
+  }
+  
+  .precio {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .cantidad {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cantidad button {
+    background-color: #ccc;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .cantidad span {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+  }
+  
+  .total {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+  
+  .botones-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .paypal,
+  .tarjeta {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .paypal {
+    background-color: #003087;
+    color: white;
+  }
+  
+  .tarjeta {
+    background-color: #111;
+    color: white;
+  }
+  

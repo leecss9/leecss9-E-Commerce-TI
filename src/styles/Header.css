@@ -1,0 +1,144 @@
+/* ===== Header Principal ===== */
+.header {
+  background-color: #1E3A5F;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  width: 100%;
+}
+
+/* ===== Logo ===== */
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* ===== Iconos de Carrito y Usuario ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-icons a,
+.user-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header-icons a:hover,
+.user-menu:hover {
+  color: #60a5fa;
+}
+
+/* ===== Botón de Icono/Fotografía de Usuario ===== */
+.user-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.user-icon-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===== Popup de Usuario ===== */
+.user-menu {
+  position: relative;
+}
+
+.user-popup {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 280px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+
+.user-popup h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 10px 0;
+  object-fit: cover;
+}
+
+.user-popup h3 {
+  margin: 10px 0 5px;
+  font-size: 1rem;
+}
+
+.user-popup p {
+  margin: 0 0 15px;
+  color: gray;
+  font-size: 14px;
+}
+
+/* ===== Botones del Popup ===== */
+.user-popup button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.profile-button {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.settings-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.admin-button {
+  background-color: #198754;
+  color: white;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+}
