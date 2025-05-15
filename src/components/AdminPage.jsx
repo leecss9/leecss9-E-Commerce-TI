@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db, collection, addDoc, getDocs, deleteDoc, doc } from "../firebase/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import AdminLayout from "./AdminLayout.jsx"; // Asegúrate de que exista este layout
 import '../styles/AdminPage.css';
 
 function AdminPage() {
@@ -11,7 +12,6 @@ function AdminPage() {
   const [loggedAdmin, setLoggedAdmin] = useState({ username: '', rol: '' });
   const [error, setError] = useState('');
 
-  // Obtener datos del usuario autenticado
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -21,7 +21,7 @@ function AdminPage() {
         if (currentUser) {
           const data = currentUser.data();
           setLoggedAdmin({
-            username: data.username || user.displayName || "Usuario sin nombre", // Usar displayName si no existe username
+            username: data.username || user.displayName || "Usuario sin nombre",
             rol: data.rol || 'Sin rol'
           });
         }
@@ -33,7 +33,6 @@ function AdminPage() {
     return () => unsubscribe();
   }, []);
 
-  // Obtener todos los administradores
   const fetchAdmins = async () => {
     const querySnapshot = await getDocs(collection(db, 'user'));
     const adminsList = querySnapshot.docs
@@ -64,7 +63,7 @@ function AdminPage() {
       await addDoc(collection(db, 'user'), {
         username: newAdmin.username,
         email: newAdmin.email,
-        password: newAdmin.password, // Aquí puedes encriptar la contraseña antes de guardarla
+        password: newAdmin.password,
         rol: 'admin',
       });
       fetchAdmins();
@@ -85,18 +84,7 @@ function AdminPage() {
   };
 
   return (
-    <div className="admin-container">
-      <aside className="sidebar">
-        <h2>{loggedAdmin.username || "Cargando..."}</h2> {/* Mostrar "Cargando..." mientras se carga el nombre */}
-        <p>{loggedAdmin.rol}</p>
-        <nav>
-          <button onClick={() => navigate('/')}>Inicio</button>
-          <button onClick={() => navigate('/admin')}>Usuarios</button>
-          <button onClick={() => navigate('/productos')}>Productos</button>
-          <button onClick={() => navigate('/pedidos')}>Pedidos</button>
-        </nav>
-      </aside>
-
+    <AdminLayout>
       <main className="admin-main">
         <section className="create-admin">
           <h3>Crear Nuevo Administrador</h3>
@@ -128,8 +116,7 @@ function AdminPage() {
             value={newAdmin.confirmPassword}
             onChange={handleInputChange}
           />
-          {error && <p className="error-message">{error}</p>} {/* Mostrar el mensaje de error */}
-
+          {error && <p className="error-message">{error}</p>}
           <button onClick={handleCreateAdmin}>Crear Administrador</button>
         </section>
 
@@ -159,7 +146,7 @@ function AdminPage() {
           </table>
         </section>
       </main>
-    </div>
+    </AdminLayout>
   );
 }
 

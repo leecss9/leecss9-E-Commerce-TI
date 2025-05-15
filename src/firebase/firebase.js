@@ -1,51 +1,106 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore'; // Importar getDoc
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, setDoc, getDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-// Tu configuración de Firebase
+// ✅ Configuración de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAJdYcewr5fZWjxVZKbHfKhbEmHG7vrrBE",
-  authDomain: "store-ti.firebaseapp.com",
-  databaseURL: "https://store-ti-default-rtdb.firebaseio.com",
-  projectId: "store-ti",
-  storageBucket: "store-ti.firebasestorage.app",
-  messagingSenderId: "962013358157",
-  appId: "1:962013358157:web:4e5953624807f715641404",
-  measurementId: "G-Q7K558TNKD"
+  apiKey: "AIzaSyB3PdJVaf-BJzFKEcKa5eIwU6x8rxFgOqk",
+  authDomain: "e-comerceti.firebaseapp.com",
+  projectId: "e-comerceti",
+  storageBucket: "e-comerceti.firebasestorage.app",
+  databaseURL: "https://e-comerceti-default-rtdb.firebaseio.com",
+  messagingSenderId: "758710169146",
+  appId: "1:758710169146:web:024362d2458fd82370cf03",
+  measurementId: "G-2WR9T5DNDV"
 };
 
-// Inicializar Firebase
+// ✅ Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-// Función para obtener productos desde Firestore
-const fetchProducts = async () => {
-  const productsCol = collection(db, "productos"); // Asegúrate de que la colección se llama 'productos'
-  const productSnapshot = await getDocs(productsCol);
-  const productList = productSnapshot.docs.map(doc => ({
+// ✅ Obtener productos
+export const fetchProducts = async () => {
+  const querySnapshot = await getDocs(collection(db, 'productos'));
+  const products = querySnapshot.docs.map(doc => ({
     id: doc.id,
     ...doc.data()
   }));
-  return productList;
+  return products;
 };
 
-// Exportar todas las funciones necesarias en una sola declaración
+// ✅ Subir imagen al Storage
+export const uploadProductImage = async (file, fileName) => {
+  const imageRef = ref(storage, `IMG Productos/${fileName}`);
+  await uploadBytes(imageRef, file);
+  const url = await getDownloadURL(imageRef);
+  return url;
+};
+
+// ✅ Agregar producto con imagen
+export const addProduct = async (productData, imageFile) => {
+  const imageUrl = await uploadProductImage(imageFile, `${Date.now()}_${imageFile.name}`);
+  const newProduct = {
+    ...productData,
+    imageUrl,
+    createdAt: new Date()
+  };
+  const docRef = await addDoc(collection(db, 'productos'), newProduct);
+  return docRef.id;
+};
+
+// ✅ Actualizar producto (con o sin nueva imagen)
+export const updateProduct = async (productId, updatedData, newImageFile = null) => {
+  const productRef = doc(db, 'productos', productId);
+
+  if (newImageFile) {
+    const newImageUrl = await uploadProductImage(newImageFile, `${Date.now()}_${newImageFile.name}`);
+    updatedData.imageUrl = newImageUrl;
+  }
+
+  await updateDoc(productRef, updatedData);
+};
+
+// ✅ Eliminar producto
+export const deleteProduct = async (productId) => {
+  const productRef = doc(db, 'productos', productId);
+  await deleteDoc(productRef);
+};
+
+// ✅ Obtener los ítems del kit desde Firebase
+export const loadKitItemsFromFirebase = async () => {
+  const querySnapshot = await getDocs(collection(db, 'kits')); // Cambia 'kits' por el nombre real de tu colección
+  const kitItems = querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+  return kitItems;
+};
+
+
+// ✅ Exportar todo lo necesario
 export {
-  auth, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  db, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  deleteDoc, 
-  doc, 
+  auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
   updateDoc,
-  getDoc, // Exportamos getDoc
-  fetchProducts // Exportamos fetchProducts una sola vez aquí
+  setDoc,
+  getDoc,
+  onSnapshot,  
+  query,        
+  orderBy,
+  serverTimestamp,    
+  storage
 };

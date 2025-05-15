@@ -1,18 +1,39 @@
-import "../styles/categorias.css"
-const Categories = () => (
+import "../styles/categorias.css";
+
+const Categories = ({ onCategorySelect }) => {
+  const categories = [
+    "Microcontroladores y placas",
+    "Sensores",
+    "Actuadores",
+    "Componentes Electronicos",
+    "Módulos",
+    "Cables y conectores",
+    "Protoboards y PCB",
+    "Alimentación",
+    "Herramientas",
+    "Kits armados",
+  ];
+
+  return (
     <div className="categories">
-      <a href="#">Microcontroladores y placas </a>
-      <a href="#">Sensores</a>
-      <a href="#">Actuadores</a>
-      <a href="#">Componentes Electronicos</a>
-      <a href="#">Módulos</a>
-      <a href="#">Cables y conecotes</a>
-      <a href="#">Protoboards y PCB</a>
-      <a href="#">Alimentación</a>
-      <a href="#">Herramientas</a>
-      <a href="#">Kits armados</a>
+      {categories.map((category) => (
+        <a
+          key={category}
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (typeof onCategorySelect === "function") {
+              onCategorySelect(category); // ✅ Llamamos solo si es función
+            } else {
+              console.warn("onCategorySelect no está definido o no es una función");
+            }
+          }}
+        >
+          {category}
+        </a>
+      ))}
     </div>
   );
-  
-  export default Categories;
-  
+};
+
+export default Categories;

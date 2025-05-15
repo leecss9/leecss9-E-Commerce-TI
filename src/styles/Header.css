@@ -14,11 +14,18 @@
   width: 100%;
 }
 
-/* ===== Logo ===== */
 .header-logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 1px;         /* Espaciado entre letras */
+  transition: color 0.2s ease;
+}
+
+.header-logo:hover {
+  color: #90e0ef; /* Ejemplo: verde agua brillante al pasar el mouse */
 }
 
 /* ===== Iconos de Carrito y Usuario ===== */
@@ -124,14 +131,10 @@
 }
 
 .profile-button {
-  background-color: white;
-  border: 1px solid black;
+  background-color: #007bff;
+  border: 1px solid rgb(255, 255, 255);
 }
 
-.settings-button {
-  background-color: #007bff;
-  color: white;
-}
 
 .admin-button {
   background-color: #198754;

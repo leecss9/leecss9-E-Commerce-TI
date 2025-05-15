@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AdminLayout from './AdminLayout.jsx';  // Importa el layout con Sidebar
 import '../styles/Productos.css';
-import { db, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from '../firebase/firebase';
+import { db, collection, deleteDoc, doc, getDocs, addProduct, updateProduct } from '../firebase/firebase';
 
 const categorias = [
   "Microcontroladores y placas",
@@ -31,13 +32,21 @@ const Productos = () => {
     archivoImagen: null
   });
   const [editingProduct, setEditingProduct] = useState(null);
-
   const navigate = useNavigate();
 
   const toggleForm = () => {
     setShowForm(!showForm);
     if (showForm) {
       setEditingProduct(null);
+      setFormData({
+        nombre: '',
+        descripcion: '',
+        categoria: '',
+        precio: '',
+        cantidad: '',
+        imagen: '',
+        archivoImagen: null
+      });
     }
   };
 
@@ -52,9 +61,7 @@ const Productos = () => {
     fetchProductos();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const filteredProductos = productos.filter(producto => {
     const coincideBusqueda = producto.nombre.toLowerCase().includes(searchQuery.toLowerCase());
@@ -90,28 +97,20 @@ const Productos = () => {
         descripcion: formData.descripcion,
         categoria: formData.categoria,
         precio: parseFloat(formData.precio),
-        cantidad: parseInt(formData.cantidad),
-        imagen: formData.imagen // puede venir de URL o archivo
+        cantidad: parseInt(formData.cantidad)
       };
 
       if (editingProduct) {
-        const productoRef = doc(db, 'productos', editingProduct.id);
-        await updateDoc(productoRef, datosProducto);
+        await updateProduct(editingProduct.id, datosProducto, formData.archivoImagen);
       } else {
-        await addDoc(collection(db, 'productos'), datosProducto);
+        if (!formData.archivoImagen) {
+          alert('Debes seleccionar una imagen');
+          return;
+        }
+        await addProduct(datosProducto, formData.archivoImagen);
       }
 
-      setFormData({
-        nombre: '',
-        descripcion: '',
-        categoria: '',
-        precio: '',
-        cantidad: '',
-        imagen: '',
-        archivoImagen: null
-      });
-      setShowForm(false);
-      setEditingProduct(null);
+      toggleForm();
       fetchProductos();
     } catch (error) {
       console.error("Error al guardar el producto:", error);
@@ -135,25 +134,14 @@ const Productos = () => {
       categoria: producto.categoria,
       precio: producto.precio,
       cantidad: producto.cantidad,
-      imagen: producto.imagen,
+      imagen: producto.imageUrl || producto.imagen || '',
       archivoImagen: null
     });
     setShowForm(true);
   };
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>Panel de Usuario</h2>
-        <p>Administrador</p>
-        <nav>
-          <button onClick={() => navigate('/')}>Inicio</button>
-          <button onClick={() => navigate('/admin')}>Usuarios</button>
-          <button onClick={() => navigate('/productos')}>Productos</button>
-          <button onClick={() => navigate('/pedidos')}>Pedidos</button>
-        </nav>
-      </div>
-
+    <AdminLayout>
       <div className="main-content">
         <div className="top-buttons">
           <button onClick={toggleForm} className="addButton">
@@ -171,13 +159,13 @@ const Productos = () => {
         <table className="product-table">
           <thead>
             <tr>
-              <th className="tableHeader">Nombre</th>
-              <th className="tableHeader">Descripción</th>
-              <th className="tableHeader">Categoría</th>
-              <th className="tableHeader">Precio</th>
-              <th className="tableHeader">Cantidad</th>
-              <th className="tableHeader">Imagen</th>
-              <th className="tableHeader">Acciones</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -186,9 +174,14 @@ const Productos = () => {
                 <td>{producto.nombre}</td>
                 <td>{producto.descripcion}</td>
                 <td>{producto.categoria}</td>
-                <td>${producto.precio}</td>
+                <td>${producto.precio} MXN</td>
                 <td>{producto.cantidad}</td>
-                <td><img src={producto.imagen} alt={producto.nombre} width="50" /></td>
+                <td>
+                  {(producto.imageUrl || producto.imagen)
+                    ? <img src={producto.imageUrl || producto.imagen} alt={producto.nombre} width="50" />
+                    : <span>Sin imagen</span>
+                  }
+                </td>
                 <td>
                   <button className="editButton" onClick={() => handleEdit(producto)}>Editar</button>
                   <button className="deleteButton" onClick={() => handleDelete(producto.id)}>Eliminar</button>
@@ -202,20 +195,18 @@ const Productos = () => {
           <div className="formContainer">
             <h2>{editingProduct ? "Editar Producto" : "Agregar Producto"}</h2>
             <form className="form" onSubmit={handleSubmit}>
-              <input name="nombre" value={formData.nombre} onChange={handleChange} type="text" placeholder="Nombre" className="input" required />
-              <input name="descripcion" value={formData.descripcion} onChange={handleChange} type="text" placeholder="Descripción" className="input" required />
-              <select name="categoria" value={formData.categoria} onChange={handleChange} className="input" required>
+              <input name="nombre" value={formData.nombre} onChange={handleChange} type="text" placeholder="Nombre" required />
+              <input name="descripcion" value={formData.descripcion} onChange={handleChange} type="text" placeholder="Descripción" required />
+              <select name="categoria" value={formData.categoria} onChange={handleChange} required>
                 <option value="">Selecciona una categoría</option>
                 {categorias.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
               </select>
-              <input name="precio" value={formData.precio} onChange={handleChange} type="number" placeholder="Precio" className="input" required />
-              
-              <input name="imagen" value={formData.imagen} onChange={handleChange} type="text" placeholder="URL de Imagen (opcional)" className="input" />
-              <input type="file" accept="image/*" onChange={handleFileChange} className="input" />
-
-              <input name="cantidad" value={formData.cantidad} onChange={handleChange} type="number" placeholder="Cantidad disponible" className="input" required />
+              <input name="precio" value={formData.precio} onChange={handleChange} type="number" placeholder="Precio en MXN" required />
+              <input name="cantidad" value={formData.cantidad} onChange={handleChange} type="number" placeholder="Cantidad disponible" required />
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+              {formData.imagen && <img src={formData.imagen} alt="Vista previa" width="100" />}
               <div className="form-buttons">
                 <button type="submit" className="saveButton">Guardar</button>
                 <button type="button" className="cancelButton" onClick={toggleForm}>Cancelar</button>
@@ -224,9 +215,8 @@ const Productos = () => {
           </div>
         )}
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 
 export default Productos;
-

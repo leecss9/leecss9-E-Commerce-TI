@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "e-comerceti",
+    "e.g. staging": "e-comerceti"
+  },
+  "targets": {},
+  "etags": {}
+}

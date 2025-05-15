@@ -1,44 +1,59 @@
-import '../styles/Footer.css'; // Asegúrate de que la ruta sea correcta
+import '../styles/Footer.css';
 
-const Footer = () => (
-  <footer>
-    <div className="footer-container">
-      <div className="footer-section">
-        <h3>Categorías</h3>
-        <ul>
-          <li><a href="#">Microcontroladores y placas</a></li>
-          <li><a href="#">Sensores</a></li>
-          <li><a href="#">Actuadores</a></li>
-          <li><a href="#">Componentes Electrónicos</a></li>
-          <li><a href="#">Módulos</a></li>
-          <li><a href="#">Cables y conectores</a></li>
-          <li><a href="#">Protoboards y PCB</a></li>
-          <li><a href="#">Alimentación</a></li>
-          <li><a href="#">Herramientas</a></li>
-          <li><a href="#">Kits armados</a></li>
-        </ul>
-      </div>
+const Footer = ({ onCategorySelect }) => {
+  const handleClick = (category) => {
+    if (onCategorySelect) {
+      onCategorySelect(category);
 
-      <div className="footer-section">
-        <h3>Contacto</h3>
-        <p>📍 Dirección: Calle 123, Querétaro, México</p>
-        <p>📞 Teléfono: +52 442 123 4567</p>
-        <p>✉️ Email: StoreTI@tienda.com</p>
-      </div>
+      // Scroll a la sección de productos
+      const section = document.querySelector(".products-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
-      <div className="footer-section">
-        <h3>Síguenos</h3>
-        <div className="social-icons">
-          <a href="#"><i className="fab fa-instagram"></i></a>
-          <a href="#"><i className="fab fa-facebook-f"></i></a>
+  return (
+    <footer>
+      <div className="footer-container">
+        <div className="footer-section">
+          <h3>Categorías</h3>
+          <ul>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("Microcontroladores y placas"); }}>Microcontroladores y placas</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("sensores"); }}>Sensores</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("actuadores"); }}>Actuadores</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("Componentes Electrónicos"); }}>Componentes Electrónicos</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("modulos"); }}>Módulos</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("Cables y conectores"); }}>Cables y conectores</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("Protoboards y PCB"); }}>Protoboards y PCB</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("alimentacion"); }}>Alimentación</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("herramientas"); }}>Herramientas</a></li>
+            <li><a href="#" onClick={(e) => { e.preventDefault(); handleClick("Kits armados"); }}>Kits armados</a></li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h3>Contacto</h3>
+          <p>📍 Dirección: Calle 123, Querétaro, México</p>
+          <p>📞 Teléfono: +52 442 123 4567</p>
+          <p>✉️ Email: StoreTI@tienda.com</p>
+        </div>
+
+        <div className="footer-section">
+          <h3>Síguenos</h3>
+          <div className="social-icons">
+            <a href="#"><i className="fab fa-instagram"></i></a>
+            <a href="#"><i className="fab fa-facebook-f"></i></a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div className="footer-bottom">
-      <p>&copy; 2025 TiendaTech | Todos los derechos reservados.</p>
-    </div>
-  </footer>
-);
+      <div className="footer-bottom">
+        <p>&copy; 2025 TiendaTech | Todos los derechos reservados.</p>
+      </div>
+
+
+    </footer>
+  );
+};
 
 export default Footer;

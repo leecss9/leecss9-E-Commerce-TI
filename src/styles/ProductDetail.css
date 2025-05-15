@@ -1,0 +1,266 @@
+/* Contenedor general más pequeño */
+.product-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1450px;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Información del producto principal */
+.product-info {
+  flex: 2;
+  min-width: 400px;
+  max-width: 550px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* CENTRAR HORIZONTALMENTE */
+}
+
+/* Imagen del producto principal */
+.product-info img {
+  width: 100%;
+  max-height: 200px;  /* imagen más pequeña */
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+/* Precio y descripción */
+.price {
+  font-size: 1.3rem;  /* tamaño ligeramente menor */
+  color: #0057d8;
+  margin: 0.5rem 0;
+}
+
+.description {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Contenedor de botones */
+.action-buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem; /* menos espacio arriba */
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 450px;
+  justify-content: center; /* CENTRAR los botones dentro del contenedor */
+}
+
+/* Botones superiores */
+.btn-carrito,
+.btn-kit {
+  flex: 1 1 calc(50% - 0.4rem);
+  min-width: 150px;    /* menos ancho mínimo */
+}
+
+/* Botón inferior */
+.btn-comprar {
+  flex: 1 1 100%;
+}
+
+/* Estilo general de botones */
+.btn-carrito,
+.btn-kit,
+.btn-comprar,
+button {
+  padding: 0.8rem 1.6rem; /* menos padding */
+  border-radius: 8px;
+  font-size: 1rem;       /* texto más pequeño */
+  font-weight: 600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Colores individuales */
+.btn-carrito {
+  background-color: #28a745;
+}
+.btn-carrito:hover {
+  background-color: #218838;
+}
+
+.btn-kit {
+  background-color: #6f42c1;
+}
+.btn-kit:hover {
+  background-color: #5936a2;
+}
+
+.btn-comprar {
+  background-color: #fd7e14;
+}
+.btn-comprar:hover {
+  background-color: #e96b05;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .btn-carrito,
+  .btn-kit {
+    flex: 1 1 100%;
+  }
+}
+
+/* Productos relacionados más pequeños */
+.related-products {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px ;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.related-product-item {
+  margin-bottom: 0.8rem;
+  padding: 0.8rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  background-color: #fff;
+  text-align: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.related-product-item img {
+  width: 100%;
+  max-height: 120px;  /* imagen más pequeña */
+  object-fit: contain;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+}
+
+.related-product-item:hover {
+  transform: scale(1.05);
+}
+
+/* Comentarios */
+.comments-section {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.comments-section textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+  padding: 8px;
+  resize: none;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-comment {
+  background-color: #0c2e4e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-comment:hover {
+  background-color: #052038;
+}
+
+.comment {
+  background-color: #efefef;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.comment-author {
+  color: red;
+  font-weight: bold;
+}
+
+.comment-date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Contenedor de botones de PayPal */
+.paypal-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Botón PayPal */
+.btn-paypal {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 200px;
+  background-color: #ffc439;
+  color: #111;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-paypal:hover {
+  background-color: #e0b126;
+}
+
+.btn-cancelar {
+  background-color: #dc3545;
+  color: rgb(203, 22, 22);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+  .btn-paypal {
+    flex: 1 1 100%;
+  }
+}
+
+.btn-cancel {
+  background-color: #dc3545;       /* rojo para cancelar */
+  color: white;                    /* texto blanco */
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #b52a3a;       /* un rojo más oscuro al pasar el cursor */
+}
+
+

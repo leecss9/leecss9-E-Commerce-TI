@@ -1,93 +1,152 @@
 .carrito-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #f9f9f2;
-    border-radius: 10px;
-    font-family: sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .vacio {
-    text-align: center;
-    font-style: italic;
-    color: #777;
-  }
-  
-  .producto {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .producto img {
-    width: 80px;
-    height: 80px;
-    margin-right: 1rem;
-  }
-  
-  .info {
-    flex: 1;
-  }
-  
-  .precio {
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .cantidad {
-    display: flex;
-    align-items: center;
-  }
-  
-  .cantidad button {
-    background-color: #ccc;
-    border: none;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  .cantidad span {
-    font-size: 18px;
-    width: 24px;
-    text-align: center;
-  }
-  
-  .total {
-    text-align: right;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 1rem 0;
-  }
-  
-  .botones-pago {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .paypal,
-  .tarjeta {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .paypal {
-    background-color: #003087;
-    color: white;
-  }
-  
-  .tarjeta {
-    background-color: #111;
-    color: white;
-  }
-  
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f9f9f2;
+  border-radius: 10px;
+  font-family: sans-serif;
+  position: relative; /* Asegura que el contenedor tenga un contexto de apilamiento */
+  z-index: 1; /* Menor que el modal */
+}
+
+.carrito-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.vacio {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
+
+.producto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  margin-bottom: 1rem;
+}
+
+.producto img {
+  width: 80px;
+  height: 80px;
+  margin-right: 1rem;
+}
+
+.info {
+  flex: 1;
+}
+
+.precio {
+  color: #007bff;
+  font-weight: bold;
+}
+.btn-eliminar {
+  background-color: transparent;  /* Sin fondo */
+  color: #ff4d4f;  /* Color del icono */
+  border: none;  /* Eliminar borde */
+  padding: 0;  /* Sin padding */
+  margin-left: 10px;  /* Ajustar margen */
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 30px;  /* Ajustar tamaño del icono */
+  display: inline-flex;  /* Asegura que solo ocupe el espacio necesario */
+  justify-content: center;  /* Centrar el icono horizontalmente */
+  max-width: 50px;  /* Limitar el ancho del botón */
+  height: 50px;  /* Ajustar la altura */
+  text-overflow: ellipsis;  /* Para asegurar que no se desborde texto (aunque no lo habrá) */
+  overflow: hidden;  /* Evitar desbordes */
+}
+
+.cantidad {
+  display: flex;
+  align-items: center;
+}
+
+.cantidad button {
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cantidad span {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.total {
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.botones-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.paypal,
+.tarjeta {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.paypal {
+  background-color: #003087;
+  color: white;
+}
+
+.tarjeta {
+  background-color: #111;
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Asegura que esté por encima de otros elementos */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  z-index: 1000; /* Asegura que el contenido del modal esté encima */
+}
+
+.modal-buttons button {
+  margin: 6px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #ccc;
+}

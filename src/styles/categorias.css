@@ -1,20 +1,23 @@
 .categories {
-    display: flex;
-    justify-content: space-evenly; /* Espacio uniforme más reducido */
-    background-color: #FA5705; /* Contenedor naranja (naranja-500) */
-    padding: 0.5rem; /* Espaciado dentro del contenedor */
-    border-radius: 0.5rem; /* Bordes redondeados */
-  }
-  
-  .categories a {
-    color: white; /* Letras blancas */
-    text-decoration: none; /* Sin subrayado */
-    font-size: 1rem; /* Tamaño de fuente */
-    font-weight: 500; /* Peso de fuente */
-    transition: color 0.3s ease; /* Transición suave para el hover */
-  }
-  
-  .categories a:hover {
-    color: #fff; /* Color blanco al pasar el mouse (sin cambio en color porque ya es blanco) */
-  }
-  
+  display: flex;
+  justify-content: space-evenly; /* Espacio uniforme más reducido */
+  background-color: #FA5705; /* Contenedor naranja (naranja-500) */
+  padding: 0.5rem; /* Espaciado dentro del contenedor */
+  border-radius: 0.5rem; /* Bordes redondeados */
+}
+
+.categories a {
+  color: white; /* Letras blancas */
+  text-decoration: none; /* Sin subrayado */
+  font-size: 1rem; /* Tamaño de fuente */
+  font-weight: 500; /* Peso de fuente */
+  transition: all 0.3s ease; /* Transición suave para el hover */
+  padding: 0.5rem 1rem; /* Espaciado dentro del enlace para mayor tamaño */
+  border-radius: 0.3rem; /* Bordes redondeados para el enlace */
+  cursor: pointer; /* Cursor pointer para indicar que es clickeable */
+}
+
+.categories a:hover {
+  background-color: #ff7a3d; /* Fondo naranja claro al pasar el mouse */
+  color: white; /* Mantener el color blanco de las letras */
+}

@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';  
 import { useNavigate, Link } from 'react-router-dom';  
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';  
-import { getFirestore, doc, getDoc } from 'firebase/firestore';  // 👈 Import Firestore
+import { getFirestore, doc, getDoc } from 'firebase/firestore';  
 import '../styles/Header.css';
-import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
+import { FaShoppingCart, FaUserCircle, FaBox } from 'react-icons/fa';  
 
 const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [user, setUser] = useState(null); 
-  const [userRole, setUserRole] = useState(null);  // 👈 Estado para el rol
+  const [userRole, setUserRole] = useState(null);  
   const navigate = useNavigate();  
 
   const auth = getAuth();
   const db = getFirestore();
 
-  // Verificar si hay usuario y obtener su rol
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser || null);
       if (currentUser) {
         try {
-          const docRef = doc(db, "user", currentUser.uid);  // 👈 Asegúrate que esta ruta sea correcta
+          const docRef = doc(db, "user", currentUser.uid);  
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
-            setUserRole(docSnap.data().rol);  // 👈 El campo debe llamarse 'rol' en Firestore
+            setUserRole(docSnap.data().rol);  
           } else {
             setUserRole(null);
           }
@@ -60,12 +59,16 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-content">
-        <div className="header-logo">Store TI</div>
+        <Link to="/" className="header-logo">Store TI</Link>
 
         <div className="header-icons">
+          <Link to="/kit" title="Kit" className="cart-link">
+            <FaBox /> {/* Aquí está el ícono de FaBox */}
+          </Link>
           <Link to="/carrito" title="Carrito" className="cart-link">
             <FaShoppingCart />
           </Link>
+          
 
           <div className="user-menu">
             <button 
@@ -90,9 +93,7 @@ const Header = () => {
                     <h3>{user.displayName || 'Nombre de Usuario'}</h3>
                     <p>{user.email}</p>
                     <button className="profile-button" onClick={() => navigate("/perfil")}>Ver Perfil</button>
-                    <button className="settings-button" onClick={() => navigate("/configuracion")}>Configuración</button>
 
-                    {/* Solo se muestra si el usuario es admin */}
                     {userRole === "admin" && (
                       <button className="admin-button" onClick={() => navigate("/admin")}>Panel de Administrador</button>
                     )}

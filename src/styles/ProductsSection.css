@@ -1,4 +1,5 @@
 .products-section {
+  overflow-x: auto;  
   margin: 2rem 0;
   padding: 1rem;
 }
@@ -9,8 +10,8 @@
   font-weight: bold;
 }
 
-.products-grid {
+.products-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
 }
