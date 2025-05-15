@@ -1,39 +1,42 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, setDoc, getDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// src/firebase.js
 
-// ✅ Configuración de Firebase
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, setDoc, getDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+// Configuración de Firebase usando variables de entorno
 const firebaseConfig = {
-  apiKey: "AIzaSyB3PdJVaf-BJzFKEcKa5eIwU6x8rxFgOqk",
-  authDomain: "e-comerceti.firebaseapp.com",
-  projectId: "e-comerceti",
-  storageBucket: "e-comerceti.firebasestorage.app",
-  databaseURL: "https://e-comerceti-default-rtdb.firebaseio.com",
-  messagingSenderId: "758710169146",
-  appId: "1:758710169146:web:024362d2458fd82370cf03",
-  measurementId: "G-2WR9T5DNDV"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// ✅ Inicializar Firebase
+export default firebaseConfig;
+
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// ✅ Obtener productos
+// Aquí van tus funciones exportadas, igual que antes
+
 export const fetchProducts = async () => {
-  const querySnapshot = await getDocs(collection(db, 'productos'));
-  const products = querySnapshot.docs.map(doc => ({
+  const querySnapshot = await getDocs(collection(db, "productos"));
+  const products = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data()
+    ...doc.data(),
   }));
   return products;
 };
 
-// ✅ Subir imagen al Storage
 export const uploadProductImage = async (file, fileName) => {
   const imageRef = ref(storage, `IMG Productos/${fileName}`);
   await uploadBytes(imageRef, file);
@@ -41,21 +44,19 @@ export const uploadProductImage = async (file, fileName) => {
   return url;
 };
 
-// ✅ Agregar producto con imagen
 export const addProduct = async (productData, imageFile) => {
   const imageUrl = await uploadProductImage(imageFile, `${Date.now()}_${imageFile.name}`);
   const newProduct = {
     ...productData,
     imageUrl,
-    createdAt: new Date()
+    createdAt: new Date(),
   };
-  const docRef = await addDoc(collection(db, 'productos'), newProduct);
+  const docRef = await addDoc(collection(db, "productos"), newProduct);
   return docRef.id;
 };
 
-// ✅ Actualizar producto (con o sin nueva imagen)
 export const updateProduct = async (productId, updatedData, newImageFile = null) => {
-  const productRef = doc(db, 'productos', productId);
+  const productRef = doc(db, "productos", productId);
 
   if (newImageFile) {
     const newImageUrl = await uploadProductImage(newImageFile, `${Date.now()}_${newImageFile.name}`);
@@ -65,24 +66,20 @@ export const updateProduct = async (productId, updatedData, newImageFile = null)
   await updateDoc(productRef, updatedData);
 };
 
-// ✅ Eliminar producto
 export const deleteProduct = async (productId) => {
-  const productRef = doc(db, 'productos', productId);
+  const productRef = doc(db, "productos", productId);
   await deleteDoc(productRef);
 };
 
-// ✅ Obtener los ítems del kit desde Firebase
 export const loadKitItemsFromFirebase = async () => {
-  const querySnapshot = await getDocs(collection(db, 'kits')); // Cambia 'kits' por el nombre real de tu colección
-  const kitItems = querySnapshot.docs.map(doc => ({
+  const querySnapshot = await getDocs(collection(db, "kits"));
+  const kitItems = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data()
+    ...doc.data(),
   }));
   return kitItems;
 };
 
-
-// ✅ Exportar todo lo necesario
 export {
   auth,
   signInWithEmailAndPassword,
@@ -98,9 +95,9 @@ export {
   updateDoc,
   setDoc,
   getDoc,
-  onSnapshot,  
-  query,        
+  onSnapshot,
+  query,
   orderBy,
-  serverTimestamp,    
-  storage
+  serverTimestamp,
+  storage,
 };
